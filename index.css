@@ -104,4 +104,63 @@ body {
     padding: 20px;
     overflow: auto; /* Permite rolar o conteúdo interno */
     color: #ffffff; /* Texto branco para o conteúdo */
+    height: 325px;
 }
+
+.modulo-manga-all-manga{
+    height: 19vh;
+    width: 60vh;
+    align-content: space-between;
+    margin: 1vh;
+    border: 0.5vh solid #ffffffc9;
+    border-radius: 2vh;
+    padding: 1.5vh;
+}
+
+.modulo-manga-all-manga:hover{
+    background-color: #ffffff31;
+}
+
+.imagem-modulo-manga-all-manga img{
+    height: 18vh;
+    float: left;
+    margin-right: 2vh ;
+    border-radius: 1.5vh;
+    padding-top: 1.4vh;
+}
+
+.texto-modulo-manga-all-manga {
+    padding-left: 0; 
+    overflow: hidden;
+    position: relative;
+    padding-top: 1vh; 
+}
+
+.texto-modulo-manga-all-manga p,
+.texto-modulo-manga-all-manga h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Número máximo de linhas visíveis */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; /* Permite quebras de linha */
+    word-break: break-word; /* Quebra palavras longas */
+    font-size: 1.3vh;
+    text-align: justify;
+    margin-top: 0;
+}
+
+/* Ajuste a altura conforme necessário para o título e o parágrafo */
+.texto-modulo-manga-all-manga p {
+    height: auto; /* Ajuste a altura do parágrafo com base no conteúdo */
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.texto-modulo-manga-all-manga h3 {
+    height: auto; /* Ajuste a altura do título com base no conteúdo */
+    font-size: 3vh;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+

@@ -1,16 +1,13 @@
-// scripts.js
-
 // Função para abrir a janela flutuante
 document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(icon => {
     icon.addEventListener('click', function() {
         let modalId = this.getAttribute('data-modal');
         let modal = document.getElementById(modalId);
         
-        // Mostrar a janela modal
-        modal.style.display = 'block';
-
-        // Atualizar o z-index
-        updateModalZIndex(modal);
+        if (modal) {
+            modal.style.display = 'block';
+            updateModalZIndex(modal);
+        }
     });
 });
 
@@ -18,7 +15,11 @@ document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(i
 document.querySelectorAll('.modal-close').forEach(closeBtn => {
     closeBtn.addEventListener('click', function() {
         let modalId = this.getAttribute('data-modal');
-        document.getElementById(modalId).style.display = 'none';
+        let modal = document.getElementById(modalId);
+        
+        if (modal) {
+            modal.style.display = 'none';
+        }
     });
 });
 
@@ -26,7 +27,6 @@ document.querySelectorAll('.modal-close').forEach(closeBtn => {
 function dragElement(el) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (el.querySelector('.modal-header')) {
-        // Se o cabeçalho existir, iniciar o arrasto
         el.querySelector('.modal-header').onmousedown = dragMouseDown;
     }
 
@@ -58,7 +58,6 @@ function dragElement(el) {
 document.querySelectorAll('.modal').forEach(modal => {
     dragElement(modal);
 
-    // Adiciona o evento de clique para atualizar o z-index
     modal.addEventListener('click', function() {
         updateModalZIndex(this);
     });
@@ -66,19 +65,53 @@ document.querySelectorAll('.modal').forEach(modal => {
 
 // Função para atualizar o z-index das modais
 function updateModalZIndex(activeModal) {
-    // Encontre o maior z-index atual
     let maxZIndex = Math.max(
         ...Array.from(document.querySelectorAll('.modal')).map(modal => parseInt(window.getComputedStyle(modal).zIndex, 10))
     );
 
-    // Ajuste o z-index das modais
     document.querySelectorAll('.modal').forEach(modal => {
         let currentZIndex = parseInt(window.getComputedStyle(modal).zIndex, 10);
         if (modal !== activeModal) {
-            modal.style.zIndex = Math.max(2, currentZIndex - 1); // Garantir que não seja menor que 2 (barra de ferramentas)
+            modal.style.zIndex = Math.max(2, currentZIndex - 1);
         }
     });
 
-    // Defina o z-index da modal ativa como o maior
     activeModal.style.zIndex = maxZIndex + 1;
+}
+
+// Ajustar altura total em vh
+function aplicarAlturaTotalEmVh(classeDivs, classeModal) {
+    const divs = document.querySelectorAll(classeDivs);
+    let totalHeight = 0;
+    divs.forEach(div => {
+        totalHeight += div.offsetHeight;
+    });
+    const viewportHeight = window.innerHeight;
+    const totalHeightInVh = (totalHeight / viewportHeight) * 100;
+    const modalBody = document.querySelector(classeModal);
+    if (modalBody) {
+        modalBody.style.height = `${totalHeightInVh}vh`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    aplicarAlturaTotalEmVh('.titulo-texto-modulo-manga-all-manga', '.texto-modulo-manga-all-manga');
+    aplicarAlturaTotalEmVh('.sinopse-texto-modulo-manga-all-manga', '.texto-modulo-manga-all-manga');
+    ajustarTexto('.texto-modulo-manga-all-manga p', 3);
+    ajustarTexto('.texto-modulo-manga-all-manga h3', 1);
+});
+
+function ajustarTexto(classeTexto, linhasMaximas) {
+    const textos = document.querySelectorAll(classeTexto);
+    textos.forEach(texto => {
+        texto.style.display = '-webkit-box';
+        texto.style.webkitBoxOrient = 'vertical';
+        texto.style.webkitLineClamp = linhasMaximas;
+        texto.style.overflow = 'hidden';
+        texto.style.textOverflow = 'ellipsis';
+        texto.style.whiteSpace = 'normal';
+        texto.style.wordBreak = 'break-word';
+        const lineHeight = parseFloat(getComputedStyle(texto).lineHeight);
+        texto.style.maxHeight = `${lineHeight * linhasMaximas}px`;
+    });
 }
