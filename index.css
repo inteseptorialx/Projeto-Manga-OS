@@ -46,7 +46,7 @@ body {
     color: rgba(255, 255, 255, 1);
 }
 
-/* Estilos para a janela flutuante */
+/* Estilos para todas as janelas modais */
 .modal {
     display: none; /* Oculta as janelas por padrão */
     position: fixed;
@@ -57,35 +57,46 @@ body {
     max-width: 600px;
     height: 80%;
     max-height: 400px;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    background: rgba(0, 153, 255, 0.151);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 1000;
     overflow: hidden;
+    color: #ffffff; /* Texto branco para toda a modal */
 }
 
+/* Estilos para o cabeçalho da janela modal */
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background: #f1f1f1;
-    border-bottom: 1px solid #ccc;
+    background: rgba(0, 153, 255, 0.60); /* Azul com transparência */
+    backdrop-filter: blur(10px);
+    border-radius: 15px 15px 0 0; /* Adiciona bordas arredondadas no topo */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     cursor: move; /* Cursor para arrastar */
+    color: #ffffff; /* Texto branco para o cabeçalho */
 }
 
+/* Estilos para o título da janela modal */
 .modal-title {
     font-weight: bold;
+    color: #ffffff; /* Texto branco para o título */
 }
 
+/* Estilos para o botão de fechar da janela modal */
 .modal-close {
     font-size: 24px;
     cursor: pointer;
+    color: #ffffff; /* Texto branco para o botão de fechar */
 }
 
-/* Estilos para o conteúdo da janela */
+/* Estilos para o conteúdo da janela modal */
 .modal-body {
     padding: 20px;
     overflow: auto; /* Permite rolar o conteúdo interno */
+    color: #ffffff; /* Texto branco para o conteúdo */
 }
