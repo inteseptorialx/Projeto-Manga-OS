@@ -4,7 +4,13 @@
 document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(icon => {
     icon.addEventListener('click', function() {
         let modalId = this.getAttribute('data-modal');
-        document.getElementById(modalId).style.display = 'block';
+        let modal = document.getElementById(modalId);
+        
+        // Mostrar a janela modal
+        modal.style.display = 'block';
+
+        // Atualizar o z-index
+        updateModalZIndex(modal);
     });
 });
 
@@ -51,4 +57,28 @@ function dragElement(el) {
 // Inicializa o arrasto para cada modal
 document.querySelectorAll('.modal').forEach(modal => {
     dragElement(modal);
+
+    // Adiciona o evento de clique para atualizar o z-index
+    modal.addEventListener('click', function() {
+        updateModalZIndex(this);
+    });
 });
+
+// Função para atualizar o z-index das modais
+function updateModalZIndex(activeModal) {
+    // Encontre o maior z-index atual
+    let maxZIndex = Math.max(
+        ...Array.from(document.querySelectorAll('.modal')).map(modal => parseInt(window.getComputedStyle(modal).zIndex, 10))
+    );
+
+    // Ajuste o z-index das modais
+    document.querySelectorAll('.modal').forEach(modal => {
+        let currentZIndex = parseInt(window.getComputedStyle(modal).zIndex, 10);
+        if (modal !== activeModal) {
+            modal.style.zIndex = Math.max(2, currentZIndex - 1); // Garantir que não seja menor que 2 (barra de ferramentas)
+        }
+    });
+
+    // Defina o z-index da modal ativa como o maior
+    activeModal.style.zIndex = maxZIndex + 1;
+}
