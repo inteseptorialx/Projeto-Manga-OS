@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif; /* Aplica a fonte Poppins ao corpo todo */
+    cursor: url('recursos/cursor%20branco.svg'), default; /* Utiliza o cursor SVG com fallback para o cursor padrão */
 }
 
 #barra_de_ferramentas {
@@ -80,6 +81,7 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     cursor: move; /* Cursor para arrastar */
     color: #ffffff; /* Texto branco para o cabeçalho */
+    cursor: url('recursos/cruz%20branca.svg') 16 16, move;
 }
 
 /* Estilos para o título da janela modal */
@@ -93,6 +95,8 @@ body {
     font-size: 24px;
     cursor: pointer;
     color: #ffffff; /* Texto branco para o botão de fechar */
+    cursor: url('recursos/pointer%20branco.svg') 16 16, pointer; /* Utilize o SVG com fallback para o cursor padrão de pointer */
+
 }
 
 /* Estilos para o conteúdo da janela modal */
