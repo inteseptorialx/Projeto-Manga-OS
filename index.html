@@ -5,20 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
     <title>Manga OS</title>
 </head>
 <body>
     <div id="area_de_trabalho"></div>
     <div id="barra_de_ferramentas">
-        <div id="botao_iniciar_da_barra_de_ferramentas"><span class="material-symbols-outlined">menu_book</span></div>
-        <div id="aplicativos_da_barra_de_ferramentas">
-            <span class="material-symbols-outlined">list_alt</span>
-            <span class="material-symbols-outlined">account_circle</span>
-            <span class="material-symbols-outlined">bookmark_star</span>
-            <span class="material-symbols-outlined">settings</span>
+        <div id="botao_iniciar_da_barra_de_ferramentas">
+            <span class="material-symbols-outlined">menu_book</span>
         </div>
-        <div id="notificacoes_da_barra_de_ferramentas"><span class="material-symbols-outlined">Notifications</span></div>
+        <div id="aplicativos_da_barra_de_ferramentas">
+            <span class="material-symbols-outlined" data-modal="list_alt_modal">list_alt</span>
+            <span class="material-symbols-outlined" data-modal="account_circle_modal">account_circle</span>
+            <span class="material-symbols-outlined" data-modal="bookmark_star_modal">bookmark_star</span>
+            <span class="material-symbols-outlined" data-modal="settings_modal">settings</span>
+        </div>
+        <div id="notificacoes_da_barra_de_ferramentas">
+            <span class="material-symbols-outlined">notifications</span>
+        </div>
     </div>
+
+    <!-- Janelas Flutuantes -->
+    <div id="list_alt_modal" class="modal">
+        <div class="modal-header">
+            <span class="modal-title">Lista de Itens</span>
+            <span class="modal-close" data-modal="list_alt_modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Conteúdo para "List Alt".</p>
+        </div>
+    </div>
+
+    <div id="account_circle_modal" class="modal">
+        <div class="modal-header">
+            <span class="modal-title">Conta</span>
+            <span class="modal-close" data-modal="account_circle_modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Conteúdo para "Account Circle".</p>
+        </div>
+    </div>
+
+    <div id="bookmark_star_modal" class="modal">
+        <div class="modal-header">
+            <span class="modal-title">Favoritos</span>
+            <span class="modal-close" data-modal="bookmark_star_modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Conteúdo para "Bookmark Star".</p>
+        </div>
+    </div>
+
+    <div id="settings_modal" class="modal">
+        <div class="modal-header">
+            <span class="modal-title">Configurações</span>
+            <span class="modal-close" data-modal="settings_modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Conteúdo para "Settings".</p>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>
