@@ -216,6 +216,6 @@ function ajustarTexto(classeTexto, linhasMaximas) {
 // Responsabilidade: Garantir que o ajuste do texto ocorra após o carregamento completo do conteúdo da página.
 // ============================
 document.addEventListener('DOMContentLoaded', function() {
-    ajustarTexto('.texto-modulo-manga-all-manga p', 3); // Exemplo para parágrafos
-    ajustarTexto('.texto-modulo-manga-all-manga h3', 1); // Exemplo para títulos
+    ajustarTexto('.texto-modulo-manga-all-manga p', 4); // Exemplo para parágrafos
+    ajustarTexto('.texto-modulo-manga-all-manga h3', 2); // Exemplo para títulos
 });
