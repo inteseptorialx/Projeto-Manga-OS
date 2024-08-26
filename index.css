@@ -5,6 +5,18 @@ body {
     cursor: url('recursos/cursor%20branco.svg'), default; /* Utiliza o cursor SVG com fallback para o cursor padrão */
 }
 
+/* Garante que o container ocupe toda a tela do usuário */
+.container {
+    position: fixed; /* Garante que o container ocupa toda a tela e não se move com o rolar da página */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto; /* Permite rolar se o conteúdo for maior que o container */
+    padding: 0px; /* Margem interna */
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura total */
+
+
 #barra_de_ferramentas {
     position: absolute;
     z-index: 2;
@@ -33,7 +45,6 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3CradialGradient id='a' cx='396' cy='281' r='514' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23D18'/%3E%3Cstop offset='1' stop-color='%23330000'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='400' y1='148' x2='400' y2='333'%3E%3Cstop offset='0' stop-color='%23FA3' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23FA3' stop-opacity='0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='400'/%3E%3Cg fill-opacity='0.4'%3E%3Ccircle fill='url(%23b)' cx='267.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='532.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='400' cy='30' r='300'/%3E%3C/g%3E%3C/svg%3E");
     background-attachment: fixed;
     background-size: cover;
-    
 }
 
 #botao_iniciar_da_barra_de_ferramentas span,
@@ -57,9 +68,9 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80%;
-    max-width: 600px;
+    min-width: 95vh; /* Máximo de 80% da altura da viewport */
     height: 80%;
-    max-height: 400px;
+    min-height: 35vh;
     background: rgba(0, 153, 255, 0.151);
     backdrop-filter: blur(10px);
     border-radius: 21px;
@@ -68,6 +79,7 @@ body {
     z-index: 1000;
     overflow: hidden;
     color: #ffffff; /* Texto branco para toda a modal */
+    resize: both; /* Permite redimensionar a janela */
 }
 
 /* Estilos para o cabeçalho da janela modal */
@@ -97,18 +109,23 @@ body {
     cursor: pointer;
     color: #ffffff; /* Texto branco para o botão de fechar */
     cursor: url('recursos/pointer%20branco.svg') 16 16, pointer; /* Utilize o SVG com fallback para o cursor padrão de pointer */
-
 }
 
 /* Estilos para o conteúdo da janela modal */
 .modal-body {
     padding: 20px;
+    padding-bottom: 0px;
+    padding-top: 0px;
     overflow: auto; /* Permite rolar o conteúdo interno */
     color: #ffffff; /* Texto branco para o conteúdo */
-    height: 325px;
+    height: calc(100% - 40px); /* Ajusta a altura do conteúdo */
+    
+    display: grid; /* Define o layout de grid */
+    grid-template-columns: repeat(auto-fill, minmax(82vh, 5vh)); /* Ajusta o número de colunas conforme o tamanho */
+    grid-auto-rows: 20vh; /* Define a altura das linhas */
+    gap: 5vh; /* Define o espaçamento entre os itens */
 }
-
-.modulo-manga-all-manga{
+.modulo-manga-all-manga {
     height: 19vh;
     width: 82vh;
     align-content: space-between;
@@ -116,24 +133,25 @@ body {
     border: 0.5vh solid #ffffffc9;
     border-radius: 2vh;
     padding: 1.5vh;
+    margin: 1.5vh 0vh 0vh 1vh;
 }
 
-.modulo-manga-all-manga:hover{
+.modulo-manga-all-manga:hover {
     background-color: #ffffff31;
 }
 
-.imagem-modulo-manga-all-manga img{
+.imagem-modulo-manga-all-manga img {
     height: 18vh;
     float: left;
-    margin-right: 2vh ;
-    border-radius: 1.5vh ;
+    margin-right: 2vh;
+    border-radius: 1.5vh;
     margin-top: 0.7vh;
 }
 
 .texto-modulo-manga-all-manga {
     padding-left: 0;
     position: relative;
-    padding-top: 1vh; 
+    padding-top: 1vh;
     height: 18vh;
 }
 
@@ -151,20 +169,26 @@ body {
     padding: 0vh;
 }
 
-/* Ajuste a altura conforme necessário para o título e o parágrafo */
 .texto-modulo-manga-all-manga p {
-    height: auto; /* Ajuste a altura do parágrafo com base no conteúdo */
+    height: auto; /* Ajusta a altura do parágrafo com base no conteúdo */
     padding-top: 0;
     margin-top: 0;
     text-align: justify;
 }
 
 .texto-modulo-manga-all-manga h3 {
-    height: auto; /* Ajuste a altura do título com base no conteúdo */
+    height: auto; /* Ajusta a altura do título com base no conteúdo */
     font-size: 3vh;
     padding-bottom: 0;
     margin-bottom: 0;
     text-align: left;
+}
+
+.info-texto-modulo-manga-all-manga {
+    font-size: 1.3vh;
+    margin: 0;
+    text-align: left;
+    font-weight: bold;
 }
 
 .modal-border-top, .modal-border-right, .modal-border-bottom, .modal-border-left {
@@ -173,16 +197,36 @@ body {
     z-index: 10; /* Ajuste conforme necessário */
 }
 
-.texto-modulo-manga-all-manga element.style{
-    height: 18vh;
+/* Estilo para o ponto de referência */
+.ponto-referencia {
+    top: 50%;
+    z-index: 999;
+    left: 50%;
+    position: absolute; /* Alinhar ao viewport */
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: transparent;
+    pointer-events: none; /* Para que o ponto não interfira nos cliques */
+    transform: translate(-50%, -50%); /* Centralizar o ponto */
 }
 
-.info-texto-modulo-manga-all-manga{
-    font-size: 1.3vh;
-    margin: 0;
-    text-align: left;
-    font-weight: bold;
-    
+/* Estiliza a barra de rolagem em navegadores WebKit */
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem vertical */
+    height: 12px; /* Altura da barra de rolagem horizontal */
 }
 
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.719) /* Cor do fundo da trilha da barra de rolagem */
+    border-radius: 10px; /* Borda arredondada da trilha */
+}
 
+::-webkit-scrollbar-thumb {
+    background: rgb(0, 153, 255, 0.60); /* Cor da parte que pode ser arrastada */
+    border-radius: 10px; /* Borda arredondada da parte que pode ser arrastada */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(0, 195, 255); /* Cor quando o cursor está sobre a parte que pode ser arrastada */
+}

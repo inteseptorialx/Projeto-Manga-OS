@@ -155,6 +155,48 @@ function centerModal(modal) {
 }
 
 // ============================
+// Função para centralizar a janela modal entre o centro da tela e o centro do modal
+// Responsabilidade: Posicionar a janela modal entre o centro da tela e o centro do modal
+// ============================
+function centerModal(modal) {
+    // Obter a largura e altura do modal
+    const modalWidth = modal.offsetWidth;
+    const modalHeight = modal.offsetHeight;
+
+    // Calcular a posição central da tela
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Calcular a posição desejada para o modal (50% do caminho entre o centro da tela e o centro do modal)
+    const top = viewportHeight / 2 - modalHeight / 4;
+    const left = viewportWidth / 2 - modalWidth / 4;
+
+    // Definir a posição do modal
+    modal.style.position = 'fixed'; // Garantir que o modal seja posicionado em relação à tela
+    modal.style.top = `${top}px`;
+    modal.style.left = `${left}px`;
+}
+
+
+
+// Exemplo de uso ao abrir o modal
+document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(icon => {
+    icon.addEventListener('click', function() {
+        let modalId = this.getAttribute('data-modal');
+        let modal = document.getElementById(modalId);
+        
+        // Mostrar a janela modal
+        modal.style.display = 'block';
+        
+        // Centralizar a janela modal
+        centerModal(modal);
+        
+        // Atualizar o z-index
+        updateModalZIndex(modal);
+    });
+});
+
+// ============================
 // Função para aplicar altura total em vh
 // Responsabilidade: Ajustar a altura de um elemento baseado na soma das alturas de outras divs em relação à altura da viewport.
 // ============================
@@ -218,4 +260,6 @@ function ajustarTexto(classeTexto, linhasMaximas) {
 document.addEventListener('DOMContentLoaded', function() {
     ajustarTexto('.texto-modulo-manga-all-manga p', 4); // Exemplo para parágrafos
     ajustarTexto('.texto-modulo-manga-all-manga h3', 2); // Exemplo para títulos
+    centralizarModaisNoPontoReferencia('.ponto-referencia');
 });
+
