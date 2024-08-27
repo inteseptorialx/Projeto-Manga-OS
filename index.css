@@ -15,7 +15,8 @@ body {
     overflow: auto; /* Permite rolar se o conteúdo for maior que o container */
     padding: 0px; /* Margem interna */
     box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura total */
-
+    
+}
 
 #barra_de_ferramentas {
     position: absolute;
@@ -118,7 +119,7 @@ body {
     padding-top: 0px;
     overflow: auto; /* Permite rolar o conteúdo interno */
     color: #ffffff; /* Texto branco para o conteúdo */
-    height: calc(100% - 40px); /* Ajusta a altura do conteúdo */
+    height: calc(100% - 45px); /* Ajusta a altura do conteúdo */
     
     display: grid; /* Define o layout de grid */
     grid-template-columns: repeat(auto-fill, minmax(82vh, 5vh)); /* Ajusta o número de colunas conforme o tamanho */
@@ -133,7 +134,8 @@ body {
     border: 0.5vh solid #ffffffc9;
     border-radius: 2vh;
     padding: 1.5vh;
-    margin: 1.5vh 0vh 0vh 1vh;
+    margin: 1.5vh;
+    
 }
 
 .modulo-manga-all-manga:hover {
@@ -149,7 +151,7 @@ body {
 }
 
 .texto-modulo-manga-all-manga {
-    padding-left: 0;
+    padding-left: 2vh;
     position: relative;
     padding-top: 1vh;
     height: 18vh;
@@ -229,4 +231,12 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(0, 195, 255); /* Cor quando o cursor está sobre a parte que pode ser arrastada */
+}
+
+.separador{
+    height: 6px;
+    width: 100%;
+    background-color: #ffffff30;
+    border-radius: 20px;
+    margin: 15px;
 }

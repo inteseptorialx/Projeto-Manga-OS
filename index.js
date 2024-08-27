@@ -2,10 +2,14 @@
 // Função para abrir a janela flutuante
 // Responsabilidade: Exibir a janela modal associada ao ícone clicado e atualizar seu z-index para trazê-la ao primeiro plano.
 // ============================
+// Função para abrir a janela flutuante
 document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(icon => {
     icon.addEventListener('click', function() {
         let modalId = this.getAttribute('data-modal');
         let modal = document.getElementById(modalId);
+        
+        // Definir o tamanho padrão da janela modal
+        setDefaultModalSize(modal, 600, 300); // largura de 600px e altura de 400px
         
         // Mostrar a janela modal
         modal.style.display = 'block';
@@ -16,7 +20,40 @@ document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(i
         // Atualizar o z-index
         updateModalZIndex(modal);
     });
-});
+}); 
+
+// Função para centralizar a janela modal
+function centerModal(modal) {
+    let modalWidth = modal.offsetWidth;
+    let modalHeight = modal.offsetHeight;
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+
+    // Calcular a posição central
+    let left = (windowWidth - modalWidth) / 2;
+    let top = (windowHeight - modalHeight) / 2;
+
+    // Aplicar a posição
+    modal.style.position = 'fixed';
+    modal.style.left = `${left}px`;
+    modal.style.top = `${top}px`;
+}
+
+// Função para atualizar o z-index da janela modal
+function updateModalZIndex(modal) {
+    let currentZIndex = parseInt(getComputedStyle(modal).zIndex) || 0;
+    let newZIndex = currentZIndex + 1;
+
+    // Atualizar o z-index
+    modal.style.zIndex = newZIndex;
+}
+
+// Função para definir o tamanho padrão da janela modal
+function setDefaultModalSize(modal, width, height) {
+    modal.style.width = `${width}px`;
+    modal.style.height = `${height}px`;
+}
+
 
 // ============================
 // Função para fechar a janela flutuante
@@ -259,7 +296,7 @@ function ajustarTexto(classeTexto, linhasMaximas) {
 // ============================
 document.addEventListener('DOMContentLoaded', function() {
     ajustarTexto('.texto-modulo-manga-all-manga p', 4); // Exemplo para parágrafos
-    ajustarTexto('.texto-modulo-manga-all-manga h3', 2); // Exemplo para títulos
+    ajustarTexto('.texto-modulo-manga-all-manga h3', 1); // Exemplo para títulos
     centralizarModaisNoPontoReferencia('.ponto-referencia');
 });
 
