@@ -9,8 +9,15 @@ document.querySelectorAll('#aplicativos_da_barra_de_ferramentas span').forEach(i
         let modal = document.getElementById(modalId);
         
         // Definir o tamanho padrão da janela modal
-        setDefaultModalSize(modal, 600, 300); // largura de 600px e altura de 400px
         
+        if (window.innerWidth <= 768) {
+            // Modo mobile
+            setDefaultModalSize(modal, 600, 300); 
+        } else {
+            // Modo desktop
+            setDefaultModalSize(modal, 600, 300); 
+        }
+
         // Mostrar a janela modal
         modal.style.display = 'block';
         
@@ -76,6 +83,7 @@ document.querySelectorAll('.modal-close').forEach(closeBtn => {
 // Função para permitir arrastar a janela flutuante
 // Responsabilidade: Habilitar o arraste das janelas modais tanto em dispositivos móveis quanto em desktops, com atualização em tempo real da posição da janela durante o arraste.
 // ============================
+
 function dragElement(el) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -105,24 +113,42 @@ function dragElement(el) {
     function elementDrag(e) {
         e.preventDefault();
 
+        let newPos1, newPos2;
+
         if (e.type === 'touchmove') {
-            let newPos1 = e.touches[0].clientX;
-            let newPos2 = e.touches[0].clientY;
-            pos1 = newPos1 - pos3;
-            pos2 = newPos2 - pos4;
-            pos3 = newPos1;
-            pos4 = newPos2;
+            newPos1 = e.touches[0].clientX;
+            newPos2 = e.touches[0].clientY;
         } else {
-            let newPos1 = e.clientX;
-            let newPos2 = e.clientY;
-            pos1 = newPos1 - pos3;
-            pos2 = newPos2 - pos4;
-            pos3 = newPos1;
-            pos4 = newPos2;
+            newPos1 = e.clientX;
+            newPos2 = e.clientY;
         }
 
-        el.style.top = (el.offsetTop + pos2) + "px";
-        el.style.left = (el.offsetLeft + pos1) + "px";
+        // Calcular novas posições
+        pos1 = newPos1 - pos3;
+        pos2 = newPos2 - pos4;
+        pos3 = newPos1;
+        pos4 = newPos2;
+
+        // Obter o contêiner e o modal
+        const container = el.parentElement;
+        const containerRect = container.getBoundingClientRect();
+        const modalRect = el.getBoundingClientRect();
+
+        // Calcular a nova posição
+        let newTop = el.offsetTop + pos2;
+        let newLeft = el.offsetLeft + pos1;
+        let newBottom = newTop + modalRect.height;
+        let newRight = newLeft + modalRect.width;
+
+        // Restringir o modal dentro dos limites do contêiner
+        newTop = Math.max(containerRect.top + 160, Math.min(newTop, containerRect.bottom - modalRect.height + 90));
+        newLeft = Math.max(containerRect.left + 315, Math.min(newLeft, containerRect.right - modalRect.width + 300));
+        newBottom = newTop + modalRect.height;
+        newRight = newLeft + modalRect.width;
+
+        // Atualizar a posição do modal
+        el.style.top = `${newTop - containerRect.top}px`;
+        el.style.left = `${newLeft - containerRect.left}px`;
     }
 
     function closeDragElement() {
@@ -132,6 +158,7 @@ function dragElement(el) {
         document.removeEventListener('touchmove', elementDrag);
     }
 }
+
 
 // ============================
 // Inicializa o arrasto para cada modal
@@ -300,3 +327,36 @@ document.addEventListener('DOMContentLoaded', function() {
     centralizarModaisNoPontoReferencia('.ponto-referencia');
 });
 
+//__________________________________________
+
+const resizableElement = document.querySelector('.resizable');
+const resizeHandle = document.querySelector('.resize-handle');
+
+resizeHandle.addEventListener('mousedown', startResize);
+resizeHandle.addEventListener('touchstart', startResize, { passive: false });
+
+function startResize(e) {
+    e.preventDefault();
+
+    document.addEventListener('mousemove', resize);
+    document.addEventListener('mouseup', stopResize);
+    
+    document.addEventListener('touchmove', resize, { passive: false });
+    document.addEventListener('touchend', stopResize);
+}
+
+function resize(e) {
+    let clientX = e.pageX || e.touches[0].pageX;
+    let clientY = e.pageY || e.touches[0].pageY;
+
+    resizableElement.style.width = clientX - resizableElement.getBoundingClientRect().left + 'px';
+    resizableElement.style.height = clientY - resizableElement.getBoundingClientRect().top + 'px';
+}
+
+function stopResize() {
+    document.removeEventListener('mousemove', resize);
+    document.removeEventListener('mouseup', stopResize);
+
+    document.removeEventListener('touchmove', resize);
+    document.removeEventListener('touchend', stopResize);
+}
